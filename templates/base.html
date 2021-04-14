@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+	<meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<title>{% block title %}首页- 慕学在线网{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+{#    自己的页面添加自己的一些css和js文件所以#}
+    {% block custom_css %}
+    {% endblock %}
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
+
+</head>
+
+<body>
+<section class="headerwrap ">
+    <header>
+		<div  class=" header">
+ 			<div class="top">
+				<div class="wp">
+					<div class="fl"><p>服务电话：<b>33333333</b></p></div>
+					<!--登录后跳转-->
+                        {% if request.user.is_authenticated %}
+                            <div class="personal">
+                                <dl class="user fr">
+{#                                {% if user.nick_name %}{% endif %}如果有{{ user.nick_name }}， 就尽量显示{{ user.nick_name }}#}
+{#                                    {% else %}{{ user.username }}否则就只有显示{{ user.username }}#}
+                                    <dd>{% if user.nick_name %}{{ user.nick_name }}{% else %}{{ user.username }}{% endif %}<img class="down fr" src="/static/images/top_down.png"/></dd>
+{#                                    src="{{ user.image.url }}"也行#}
+                                    <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ user.image }}"/></dt>
+                                </dl>
+                                <div class="userdetail">
+                                    <dl>
+{#                                        src="{{ user.image.url }}"也行#}
+                                        <dt><img width="80" height="80" src="{{ MEDIA_URL }}{{ user.image }}"/></dt>
+                                        <dd>
+                                            <h2>{{ user.nick_name }}</h2>
+                                            <p>{{ user.username }}</p>
+                                        </dd>
+                                    </dl>
+                                    <div class="btn">
+{#                                        {% url 'users:info' %}后面不用跟id, 因为没有在users/urls下加id#}
+                                        <a class="personcenter fl" href="{% url 'users:info' %}">进入个人中心</a>
+                                        <a class="fr" href="{% url 'logout' %}">退出</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <a style="color:white" class="fr registerbtn" href="{% url 'register' %}">注册</a>
+                            <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">登录</a>
+                        {% endif %}
+                        <a href="{% url 'users:messages' %}">
+{#                            在每个html中,django都帮我们注入一个变量叫着user, 可以这样写{{ user.unread_nums }}, 但不是全局的未读的消息#}
+{#                            现在我们己经在settings中的TEMPLATES已经注入了一个叫'apps.users.views.meassge_nums'#}
+{#                            meassge_nums里面有个字段叫unread_nums#}
+                            <div class="msg-num"><span id="MsgNum">{{ unread_nums }}</span></div>
+                        </a>
+				</div>
+			</div>
+
+            <div class="middle">
+                <div class="wp">
+                    <a href="{% url 'login' %}"><img class="fl" src="{% static 'images/logo.jpg' %}"/></a>
+                    <div class="searchbox fr">
+                        <div class="selectContainer fl">
+{#                                                {% if s_type %}{{ s_type }}{% endif %}在这里做一个判断，才显示s_type， 否则显示一个默认值#}
+                            <span class="selectOption" id="jsSelectOption" data-value="{% if s_type %}{{ s_type }}{% else %}course{% endif %}">
+                            {% if s_type %}
+                                {% if s_type == 'course' %}公开课{% endif %}
+                                {% if s_type == 'org' %}课程机构{% endif %}
+                                {% if s_type == 'teacher' %}授课老师{% endif %}
+                            {% else %}
+                                公开课
+                            {% endif %}
+                            </span>
+                            <ul class="selectMenu" id="jsSelectMenu">
+{#                                这里的data-value="course"三个值要与后端保持一致#}
+                                <li data-value="course">公开课</li>
+                                <li data-value="org">课程机构</li>
+                                <li data-value="teacher">授课老师</li>
+                            </ul>
+                        </div>
+                        <input id="search_keywords" class="fl" type="text" value="{{ keywords }}" placeholder="请输入搜索内容"/>
+                        <img class="search_btn fr" id="jsSearchBtn" src="{% static 'images/search_btn.png' %}"/>
+                    </div>
+                </div>
+            </div>
+
+
+			<nav>
+				<div class="nav">
+					<div class="wp">
+						<ul>
+{#                        用后台的request请求回来的path做判断，因为每一个的模块下的path都不同，也就是url, 然后做一个选中的状态#}
+							<li class="{% if request.path == '/' %}active{% endif %}" ><a href="{% url 'index' %}">首页</a></li>
+{#							slice是一个过滤器，这里只取前7个， 这里以/course开头,注意：/course就是7个字符，路径是以/course为头，因为有很多/course/list等等#}
+                            <li class="{% if request.path|slice:'7' == '/course' %}active{% endif %}" >
+								<a href="{% url 'course:list' %}">
+									公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
+								</a>
+							</li>
+                                                {#							slice是一个过滤器，这里只取前13个， 这里以/org开头,注意：/org就是13个字符，路径是以/org/teachers为头，因为有很多/org/teachers/list等等#}
+{#                                这里取的13是organizations\urls中己经说明，必须把teacher_id放在后面^teachers/(?P<teacher_id>\d+)/$#}
+							<li class="{% if request.path|slice:'13' == '/org/teachers' %}active{% endif %}">
+								<a href="{% url 'org:teachers' %}">授课教师</a>
+							</li>
+                        {#							slice是一个过滤器，这里只取前4个， 这里以/org开头,注意：/org就是4个字符，路径是以/org为头，因为有很多/org/list等等#}
+{#							因为这里的讲师也是放在org下的，所以先看看满足13的/org/teachers开头， 如果不是那就是/org开头#}
+                            <li class="{% if request.path|slice:'13' != '/org/teachers' %}{% if request.path|slice:'4' == '/org' %}active{% endif %}{% endif %}" >
+                                <a href="{% url 'org:list' %}">授课机构</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+			</div>
+    </header>
+</section>
+<!--crumbs start-->
+
+
+{#希望某个页面被其他页面覆盖就用以下这个包起来, 就是被子页面(org-list就是子页面)覆盖#}
+{% block custom_bread %}
+
+{% endblock %}
+
+{#希望某个页面被其他页面覆盖就用以下这个包起来, 就是被子页面覆盖， 就用block#}
+{% block content %}
+
+{% endblock %}
+
+
+{#这个是共用的，就不用写block#}
+<footer>
+		<div class="footer">
+			<div class="wp">
+				<ul class="cont">
+					<li class="logo"><a href=""><img src="{% static 'images/footlogo.png' %}"/></a></li>
+					<li class="code"><img src="{% static 'images/code.jpg' %}"/><p class="center">扫描关注微信</p></li>
+					<li class="third"><img class="fl" src="{% static 'images/tell.png' %}"/><p class="tell">33333333</p><p class="time">周一至周日 9:00-18:00</p></li>
+				</ul>
+
+			</div>
+			<p class="line"></p>
+			<div class="wp clear">
+                <span class="fl">? 2016 www.projectsedu.com 慕学在线-在线学习交流平台 保留所有权利</span>
+                <span class="fr">copyright ? 2016 ICP备案证书号：蜀ICP备xxxxx号-1</span>
+			</div>
+		</div>
+	</footer>
+
+<section>
+    <ul class="sidebar">
+        <li class="qq">
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2023525077&site=qq&menu=yes"></a>
+        </li>
+        <li class="totop"></li>
+    </ul>
+</section>
+<script src="{% static 'js/selectUi.js' %}" type='text/javascript'></script>
+<script src="{% static 'js/deco-common.js' %}" type='text/javascript'></script>
+<script type="text/javascript" src="{% static 'js/plugins/laydate/laydate.js' %}"></script>
+<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+<script src="{% static 'js/plugins/queryCity/js/public.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/unslider.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/plugins/jquery.scrollLoading.js' %}"  type="text/javascript"></script>
+<script src="{% static 'js/deco-common.js' %}"  type="text/javascript"></script>
+
+{% block custom_js %}
+{% endblock %}
+
+
+</body>
+</html>

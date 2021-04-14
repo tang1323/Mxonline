@@ -1,0 +1,227 @@
+{#而在这里是要继承的是那一个，就是共用，比如头部，面包屑和底部都是共用的，所有这里要继承一下#}
+{#这里是继承base.html文件的block模块,用extends#}
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{#在这里因为在base.html里己经定义了这个title，这里没有覆盖，可以在这里覆盖就可以#}
+{% block title %}课程详情页-慕学在线网{% endblock %}
+
+{#这是头#}
+{% block custom_bread %}
+<section>
+    <div class="wp">
+        <ul  class="crumbs">
+            <li><a href="{% url 'index' %}">首页</a>></li>
+            <li><a href="{% url 'course:list' %}">公开课</a>></li>
+            <li>课程详情</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{#上面是相同的地方就继承#}
+{#这里不同的用这个block#}
+{% block content %}
+    <section>
+	<div class="wp">
+		<div class="groupPurchase_detail detail">
+			<div class="toppro">
+				<div class="left">
+					<div class="picbox">
+						<div class="tb-booth tb-pic">
+{#                            这里的src="{{ MEDIA_URL }}{{ course.image }}"也行#}
+							<img width="440" height="445" src="{{ course.image.url }}" class="jqzoom" />
+						</div>
+
+					</div>
+					<div class="des">
+						<h1 title="django 从入门到精通体验开始了">{{ course.name }}</h1>
+						<span class="key">{{ course.desc }}</span>
+						<div class="prize">
+                            {#                            这里的难度直接写course.degree的话，models定义的是一个choices,所以显示的是英文。那要怎么显示中文，用get_degree_display#}
+							<span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
+							<span class="fr">学习人数：{{ course.students }}</span>
+						</div>
+						<ul class="parameter">
+							<li><span class="pram word3">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span><span>{{ course.learn_times }}</span></li>
+                            <li><span class="pram word3">章&nbsp;节&nbsp;数：</span><span></span>{{ course.lesson_nums }}</li>
+                            <li><span class="pram word3">课程类别：</span><span title="">{{ course.category }}</span></li>
+							<li class="piclist"><span class="pram word4">学习用户：</span>
+{#                                   这是反向取, slice:3是只取3个#}
+                                   {% for user_course in course.usercourse_set.all|slice:3 %}
+{#                                       {{ user_course.user.image.url }}也行#}
+                                    <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
+                                   {% endfor %}
+							</li>
+						</ul>
+						<div class="btns">
+							<div class="btn colectgroupbtn"  id="jsLeftBtn">
+{#                            在course/views中己经定义好了has_fav_course和has_fav_org#}
+                                  {% if has_fav_course %}己收藏{% else %}收藏{% endif %}
+                            </div>
+                                <div class="buy btn"><a style="color: white" href="{% url 'course:lesson' course.id %}">开始学习</a></div>
+						</div>
+					</div>
+                    <div class="group-share-box">
+                        <div class="bdsharebuttonbox"
+                             data-text="django开始了"
+                             data-desc="我在#慕课网#发现了"
+                             data-comment=""
+                             data-url="/group/groupdetail/15/">
+                            <span class="fl">分享到：</span>
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                            <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                            <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                            <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                            <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                            <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                        </div>
+                    </div>
+				</div>
+				<div class="right">
+					<div class="head">
+						<h1>授课机构</h1>
+						<p>世界名校，课程权威</p>
+					</div>
+					<div class="pic">
+{#                        course_org是course的一个外键#}
+                        <a href="{% url 'org:home' course.course_org.id %}">
+{#                            也可以是{{ course.course_org.image.url }}#}
+                            <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.course_org.image }}"/>
+                        </a>
+                    </div>
+					<a href="{% url 'org:home' course.course_org.id %}">
+                        <h2 class="center" title="{{ course.course_org.name }}">{{ course.course_org.name }}</h2>
+                    </a>
+					<div class="btn  notlogin
+					     "data-favid="14" id="jsRightBtn">
+{#                         在后端定义了一个叫has_fav_org = False#}
+                        {% if has_fav_org %}己收藏{% else %}收藏{% endif %}
+                    </div>
+					<div class="clear">
+						<ul>
+                            <li>
+                                <span>课 &nbsp;程&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   {{ course.course_org.course_set.all.count }}</span>
+                            </li>
+                            <li>
+                                <span>教 &nbsp;师&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{ course.course_org.teacher_set.all.count }}</span>
+                            </li>
+							<li>所在地区：&nbsp;&nbsp;{{ course.course_org.address }}</li>
+                            {% if course.course_org.is_gold %}
+							<li>认&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;证&nbsp;:
+								    <img title="金牌机构", src="{% static 'images/gold.png' %}"/>
+							</li>
+                            {% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+    <section>
+	<div class="wp">
+		<div class="list groupPurchase_detail_pro">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="active">课程详情</li>
+					</ul>
+				</div>
+				<div class="tab_cont tab_cont1">
+{#                    因为这里的详情detail我们做了第三方集成副文本，但是全是html和字符串#}
+{#                    所以在这里做一个关掉html的字符，这样就以原样显示了#}
+{#                    用{% autoescape off %}{% endautoescape %}#}
+                    {% autoescape off %}{{ course.detail }}{% endautoescape %}
+				</div>
+				<div class="tab_cont tab_cont2" >
+					<div class="comment">
+						<div class="comenlist">
+
+	                    </div>
+					</div>
+				</div>
+			</div>
+			<div class="right layout">
+				<div class="head">相关课程推荐</div>
+                <div class="group_recommend">
+                    {% for course in related_courses %}
+                        <dl>
+                            <dt>
+                                <a target="_blank" href="">
+{#                                    也可以这样{{ course.image.url }}#}
+                                    <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
+                                </a>
+                            </dt>
+                            <dd>
+                                <a target="_blank" href=""><h2>{{ course.name }}</h2></a>
+                                <span class="fl">学习时长：<i class="key">{{ course.learn_times }}</i></span>
+                            </dd>
+                        </dl>
+                    {% endfor %}
+
+
+                </div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+
+{#这是一些js操作，像收藏是ajxa操作，就放在这里#}
+{% block custom_js %}
+
+<script type="text/javascript">
+//收藏分享
+function add_fav(current_elem, fav_id, fav_type){
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url:"{% url 'op:fav' %}",
+        data:{'fav_id':fav_id, 'fav_type':fav_type},
+        async: true,
+        beforeSend:function(xhr, settings){
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(data) {
+            if(data.status == 'fail'){
+                if(data.msg == '用户未登录'){
+                    window.location.href="{% url 'login' %}";
+                }else{
+                    alert(data.msg)
+                }
+
+            }else if(data.status == 'success'){
+                current_elem.text(data.msg)
+            }
+        },
+    });
+}
+$(document).ready(function() {
+    $('#jsLeftBtn').on('click', function () {
+        add_fav($(this), {{ course.id }}, 1);
+    });
+});
+
+$(document).ready(function() {
+	$('#jsRightBtn').on('click', function(){
+		add_fav($(this), {{ course.course_org.id }}, 2);
+	});
+});
+
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

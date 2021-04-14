@@ -1,0 +1,140 @@
+{#而在这里是要继承的是那一个，就是共用，比如头部，面包屑和底部都是共用的，所有这里要继承一下#}
+{#这里是继承base.html文件的block模块,用extends#}
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{#在这里因为在base.html里己经定义了这个title，这里没有覆盖，可以在这里覆盖就可以#}
+{% block title %}课程列表页 - 慕学在线网{% endblock %}
+
+{#这是头#}
+{% block custom_bread %}
+<section>
+    <div class="wp">
+        <ul  class="crumbs">
+            <li><a href="{% url 'index' %}">首页</a>></li>
+            <li>公开课</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+
+
+{#因为只有这一个部分是与其他模板不一样的，所有要block一下#}
+{% block content %}
+<section>
+	<div class="wp">
+		<div class="list" style="margin-top:0;">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="{% if sort == '' %}active{% endif %}"><a href="?sort=">最新 </a></li>
+						<li class="{% if sort == 'hot' %}active{% endif %}"><a href="?sort=hot">最热门</a></li>
+						<li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students">参与人数</a></li>
+					</ul>
+				</div>
+                <div id="inWindow">
+                    <div class="tab_cont " id="content">
+					<div class="group_list">
+
+{#                    如果在views做了分页功能，那就在for course in all_courses添加一个object_list#}
+                        {% for course in all_courses.object_list %}
+                            <div class="box">
+                                <a href="{% url 'course:detail' course.id %}">
+                                    <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
+                                </a>
+                                <div class="des">
+{#                                    这里一定要把course.id拿过来#}
+                                    <a href="{% url 'course:detail' course.id %}">
+                                        <h2>{{ course.name }}</h2>
+                                    </a>
+                                    <span class="fl">时长：<i class="key">{{ course.learn_times }}</i></span>
+                                    <span class="fr">学习人数：{{ course.students }}</span>
+                                </div>
+                                <div class="bottom">
+                                    <a href="{% url 'course:detail' course.id %}"><span class="fl">来自{{ course.course_org.name }}</span></a>
+                                    <span class="star fr  notlogin
+                                        " data-favid="15">
+                                        {{ course.fav_nums }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+					</div>
+                    {#            这是分页功能，开始#}
+                    <div class="pageturn">
+            <ul class="pagelist">
+
+{#            这是分页功能，开始#}
+                {% if all_courses.has_previous %}
+                    <li class="long"><a href="?{{ all_courses.previous_page_number.querystring }}">上一页</a></li>
+
+                    {#                    这是原本的，不用别人的，上面是自己定义的，但href后面的东西要一致#}
+                    {#                    <a href="?{{ all_courses.previous_page_number.querystring }}" class="prev">上一页</a>#}
+{#                    如果当前只有一页，就没有显示上一页的标签，所以就不需要有else#}
+{#                {% else %}#}
+{#                    <span class="disabled prev">&lsaquo;&lsaquo; {% trans "previous" %}</span>#}
+                {% endif %}
+                {% for page in all_courses.pages %}
+                    {% if page %}
+                        {% ifequal page all_courses.number %}
+{#                            page当前页面是这个，class="active是被选中的状态#}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% else %}
+{#                            如果不是当前页面，那就显示这个#}
+                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="none">...</li>
+                    {% endif %}
+                {% endfor %}
+
+{#            如果还有下一页的话#}
+                {% if all_courses.has_next %}
+                    <li class="long"><a href="?{{ all_courses.next_page_number.querystring }}">下一页</a></li>
+                {% endif %}
+{##}
+{#                <li class="active"><a href="?page=1">1</a></li>#}
+{#                <li><a href="?page=2" class="page">2</a></li>#}
+{#                <li><a href="?page=3" class="page">3</a></li#}
+{#                <li class="long"><a href="?page=2">下一页</a></li>#}
+{#             这是分页功能，结束#}
+
+            </ul>
+        </div>
+				</div>
+                </div>
+			</div>
+			<div class="right layout">
+				<div class="head">热门课程推荐</div>
+				<div class="group_recommend">
+
+                    {% for course in hot_course %}
+                    <dl>
+						<dt>
+							<a target="_blank" href="{% url 'course:detail' course.id %}">
+								<img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
+							</a>
+						</dt>
+						<dd>
+							<a target="_blank" href="{% url 'course:detail' course.id %}"><h2>{{ course.name }}</h2></a>
+{#                            这里的难度直接写course.degree的话，models定义的是一个choices,所以显示的是英文。那要怎么显示中文，用get_degree_display#}
+							<span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
+						</dd>
+					</dl>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+
+
+
+
+
+
+

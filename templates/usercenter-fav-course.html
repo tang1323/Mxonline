@@ -1,0 +1,110 @@
+
+
+{#因为个人中心有些页面可以共用头部或者尾部，所以可以放在一个文件继承就行了#}
+{#这个共用的我们放在usercenter-base.html#}
+{#所以在这里我们继承#}
+
+{% extends 'usercenter-base.html' %}
+
+{#这个是标题#}
+{% block title %}我的收藏- 慕学在线网{% endblock %}
+
+{% load staticfiles %}
+
+{#这是面包屑#}
+{% block custome_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'users:info' %}">个人中心</a>></li>
+                <li>我的收藏</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+{#        这是右边的自定义的block#}
+
+{% block right_form %}
+    <div class="right" >
+            <div class="personal_des Releasecont">
+                <div class="head">
+                    <h1>我的收藏</h1>
+                </div>
+            </div>
+            <div class="personal_des permessage">
+                <div class="head">
+                    <ul class="tab_header messagehead">
+                        <li><a href="{% url 'users:myfavorg' %}">课程机构</a> </li>
+                        <li><a href="{% url 'users:myfav_teacher' %}">授课教师 </a></li>
+                        <li class="active"><a href="{% url 'users:myfav_course' %}">公开课程</a></li>
+                    </ul>
+
+                </div>
+                <div class="companycenter">
+                    <div class="group_list brief">
+
+                        {% for course in course_list %}
+                        <div class="module1_5 box">
+                            <a href="{% url 'course:detail' course.id %}">
+{#                                {{ course.image.url }}也行#}
+                                <img width="214" height="190" src="{{ MEDIA_URL }}{{ course.image }}"/>
+                            </a>
+                            <div class="des">
+                                <a href="{% url 'course:detail' course.id %}"><h2>{{ course.name }}</h2></a>
+                                <span class="fl">时长：<i class="key">{{ course.learn_times }}</i></span>
+                                <span class="fr">学习人数：{{ course.students }}</span>
+                            </div>
+                            <div class="bottom">
+{#                                这是课程的机构{{ course.course_org.name }}#}
+                                <span class="fl">{{ course.course_org.name }}</span>
+                                <span class="delete-group fr jsDeleteFav_course" data-favid="{{ course.id }}"></span>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+
+{% block custom_js %}
+    <script type="text/javascript">
+    $('.jsDeleteFav_course').on('click', function () {
+            var _this = $(this),
+                favid = _this.attr('data-favid');
+            {#这个不注释会有js行为,会在网页中返回课程的一个id给你看#}
+            {#alert(favid)#}
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'op:fav' %}",
+                data: {
+                    fav_type: 1,
+                    fav_id: favid,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                async: true,
+                success: function (data) {
+                    Dml.fun.winReload();
+                }
+            });
+        });
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

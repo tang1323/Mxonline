@@ -1,0 +1,99 @@
+{#这是授课机构的详情页面#}
+{#这是org_base的子页面,会覆盖想要的内容#}
+{#首先覆盖掉org_base页面#}
+{% extends "org_base.html" %}
+
+
+
+{#然后将对应的block覆盖掉#}
+{% block title %}机构首页{% endblock %}
+
+
+{% block right_form %}
+    <div class="right companycenter layout grouping" >
+		<div class="head">
+			<h1>全部课程</h1>
+			<a class="green fr more" href="{% url 'org:course' course_org.id %}">查看更多  >  </a>
+		</div>
+		<div class="brief group_list">
+
+
+            {% for course in all_courses %}
+                <div class="module1_5 box">
+                    <a href="{% url 'course:detail' course.id %}"><img width="214" src="{{ MEDIA_URL }}{{ course.image }}"/></a>
+                    <div class="des">
+                        <a href="{% url 'course:detail' course.id %}"><h2>{{ course.name }}</h2></a>
+                        <span class="fl">课时：<i class="key">{{ course.learn_times }}</i></span>
+                        <span class="fr">参加人数：{{ course.students }}</span>
+                    </div>
+                    <div class="bottom">
+                        <span class="fl">{{ course_org.name }}</span>
+                         <span class="star fr  notlogin
+                            " data-favid="13"  data-fav-type="4">
+                            0
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+		</div>
+	</div>
+    <div class="right companycenter layout" >
+    <div class="head">
+        <h1>机构教师</h1>
+        <a class="green fr more" href="{% url 'org:teacher' course_org.id %}">查看更多  >  </a>
+    </div>
+
+    <div class="diarys">
+
+        {% for teacher in all_teacher %}
+            <div class="module5 share company-diary-box" style="padding:10px 0;">
+            <div class="left">
+{#                {% url 'org:teacher_detail' teacher.id %}教师详情页面#}
+                <a href="{% url 'org:teacher_detail' teacher.id %}"><img class="pic" src="{{ MEDIA_URL }}{{ teacher.image }}"/></a>
+                <p>昵称：{{ teacher.name }}</p>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <div class="fl">
+{#                        {% url 'course:detail' course_org.id %}课程详情页面#}
+                        <a href="{% url 'org:teacher_detail' teacher.id %}"><h1>{{ teacher.work_position }}</h1></a>
+                        <span>工作年限：{{ teacher.work_years }}</span>
+                    </div>
+                </div>
+                <div class="middle" style="border-bottom:0;">{{ teacher.points }}</div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+
+</div>
+    <div class="right companycenter layout" >
+    <div class="head">
+        <h1>机构介绍</h1>
+        <a class="green fr more" href="{% url 'org:desc' course_org.id %}">查看更多  >  </a>
+    </div>
+    <div class="cont">
+
+{#        实际上后台会显示这个html进来,但现在还没有这个副文本编辑,所以先显示课程的描述也 行#}
+{#                    因为这里的详情desc我们做了第三方集成副文本，但是全是html和字符串#}
+{#                    所以在这里做一个关掉html的字符，这样就以原样显示了#}
+{#                    用{% autoescape off %}{% endautoescape %}#}
+        {% autoescape off %}{{ course_org.desc }}{% endautoescape %}#}
+
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

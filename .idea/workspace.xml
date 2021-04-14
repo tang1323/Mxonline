@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9a1680f9-4319-4e8f-86ed-936ab4bb48aa" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hRshHw9av1x0LV6Wir4f4a1q6E" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Py-Project\Mxonline\xadmin\plugins" />
+      <recent name="D:\Py-Project\Mxonline" />
+      <recent name="D:\Py-Project\Mxonline\templates" />
+      <recent name="D:\Py-Project\Mxonline\apps\users" />
+      <recent name="D:\Py-Project\Mxonline\apps\courses" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Py-Project\Mxonline\apps\courses" />
+      <recent name="D:\Py-Project\Mxonline\apps" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Django server.Mxonline">
+    <configuration name="YunPian" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mxonline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/utils/YunPian.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="random_str" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mxonline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/utils/random_str.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="redis_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mxonline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tools/redis_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mxonline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/users" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/users/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Mxonline" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Mxonline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="Mxonline.settings" />
+      </envs>
+      <option name="SDK_HOME" value="D:\Evns\mxonline\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8010" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Django server.Mxonline" />
+      <item itemvalue="Python.random_str" />
+      <item itemvalue="Python.redis_test" />
+      <item itemvalue="Python.views" />
+      <item itemvalue="Python.YunPian" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.random_str" />
+        <item itemvalue="Python.views" />
+        <item itemvalue="Python.redis_test" />
+        <item itemvalue="Python.YunPian" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9a1680f9-4319-4e8f-86ed-936ab4bb48aa" name="Default Changelist" comment="" />
+      <created>1599985356979</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599985356979</updated>
+      <workItem from="1599985359244" duration="18647000" />
+      <workItem from="1600043829716" duration="21257000" />
+      <workItem from="1600129921495" duration="15621000" />
+      <workItem from="1600224088764" duration="630000" />
+      <workItem from="1600224791888" duration="1377000" />
+      <workItem from="1600411408715" duration="296000" />
+      <workItem from="1600411875887" duration="10095000" />
+      <workItem from="1600507798786" duration="12699000" />
+      <workItem from="1600565800165" duration="3390000" />
+      <workItem from="1600597312851" duration="508000" />
+      <workItem from="1600597861315" duration="10000" />
+      <workItem from="1600926444462" duration="256000" />
+      <workItem from="1600926741976" duration="2718000" />
+      <workItem from="1601281108739" duration="7076000" />
+      <workItem from="1601371715125" duration="1491000" />
+      <workItem from="1601375102623" duration="3279000" />
+      <workItem from="1601544341281" duration="4676000" />
+      <workItem from="1601604895991" duration="1238000" />
+      <workItem from="1601704416231" duration="8104000" />
+      <workItem from="1601782303882" duration="11053000" />
+      <workItem from="1601869249909" duration="8451000" />
+      <workItem from="1602075405690" duration="81000" />
+      <workItem from="1602380132901" duration="111000" />
+      <workItem from="1602986662440" duration="2109000" />
+      <workItem from="1603013716598" duration="2399000" />
+      <workItem from="1603016324161" duration="14000" />
+      <workItem from="1603069831379" duration="22174000" />
+      <workItem from="1603158451137" duration="20805000" />
+      <workItem from="1603205292678" duration="1730000" />
+      <workItem from="1603245064583" duration="1140000" />
+      <workItem from="1603457116968" duration="1199000" />
+      <workItem from="1603891462767" duration="3578000" />
+      <workItem from="1603964550754" duration="12924000" />
+      <workItem from="1604020811982" duration="31786000" />
+      <workItem from="1604109129953" duration="32311000" />
+      <workItem from="1604193065674" duration="34406000" />
+      <workItem from="1604281751546" duration="31946000" />
+      <workItem from="1604364207667" duration="27856000" />
+      <workItem from="1604455833474" duration="19000" />
+      <workItem from="1605001889444" duration="649000" />
+      <workItem from="1605179008999" duration="5483000" />
+      <workItem from="1605259356387" duration="2090000" />
+      <workItem from="1605432469945" duration="595000" />
+      <workItem from="1605433370070" duration="6825000" />
+      <workItem from="1605444519078" duration="4066000" />
+      <workItem from="1605513969294" duration="277000" />
+      <workItem from="1605696721378" duration="1564000" />
+      <workItem from="1605748939328" duration="1471000" />
+      <workItem from="1605751202506" duration="5417000" />
+      <workItem from="1605762714073" duration="449000" />
+      <workItem from="1605763329525" duration="2501000" />
+      <workItem from="1605926578516" duration="9940000" />
+      <workItem from="1606957887987" duration="128000" />
+      <workItem from="1607309775790" duration="12678000" />
+      <workItem from="1608125472803" duration="1662000" />
+      <workItem from="1610607266137" duration="4146000" />
+      <workItem from="1610612924596" duration="3004000" />
+      <workItem from="1610617671339" duration="296000" />
+      <workItem from="1610617990521" duration="836000" />
+      <workItem from="1610897423034" duration="43000" />
+      <workItem from="1610897526822" duration="1044000" />
+      <workItem from="1611022823213" duration="11577000" />
+      <workItem from="1611111097940" duration="619000" />
+      <workItem from="1611238851810" duration="93000" />
+      <workItem from="1616199618522" duration="17000" />
+      <workItem from="1616552087949" duration="937000" />
+      <workItem from="1616576227797" duration="634000" />
+      <workItem from="1617267646387" duration="7027000" />
+      <workItem from="1617784713824" duration="683000" />
+      <workItem from="1617786289458" duration="1431000" />
+      <workItem from="1617869027174" duration="41000" />
+      <workItem from="1617950708531" duration="1234000" />
+      <workItem from="1618133515871" duration="722000" />
+      <workItem from="1618385776219" duration="1943000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="235" y="151" key="#Deployment" timestamp="1616199633589">
+      <screen x="0" y="31" width="1440" height="929" />
+    </state>
+    <state x="235" y="151" key="#Deployment/0.31.1440.929@0.31.1440.929" timestamp="1616199633589" />
+    <state x="370" y="190" key="FileChooserDialogImpl" timestamp="1618385809140">
+      <screen x="0" y="31" width="1440" height="929" />
+    </state>
+    <state x="370" y="190" key="FileChooserDialogImpl/0.31.1440.929@0.31.1440.929" timestamp="1618385809140" />
+    <state width="1372" height="256" key="GridCell.Tab.0.bottom" timestamp="1618387841560">
+      <screen x="0" y="40" width="1440" height="920" />
+    </state>
+    <state width="1372" height="256" key="GridCell.Tab.0.bottom/0.31.1440.929@0.31.1440.929" timestamp="1618385840542" />
+    <state width="1372" height="256" key="GridCell.Tab.0.bottom/0.40.1440.920@0.40.1440.920" timestamp="1618387841560" />
+    <state width="1372" height="256" key="GridCell.Tab.0.center" timestamp="1618387841560">
+      <screen x="0" y="40" width="1440" height="920" />
+    </state>
+    <state width="1372" height="256" key="GridCell.Tab.0.center/0.31.1440.929@0.31.1440.929" timestamp="1618385840541" />
+    <state width="1372" height="256" key="GridCell.Tab.0.center/0.40.1440.920@0.40.1440.920" timestamp="1618387841560" />
+    <state width="1372" height="256" key="GridCell.Tab.0.left" timestamp="1618387841560">
+      <screen x="0" y="40" width="1440" height="920" />
+    </state>
+    <state width="1372" height="256" key="GridCell.Tab.0.left/0.31.1440.929@0.31.1440.929" timestamp="1618385840541" />
+    <state width="1372" height="256" key="GridCell.Tab.0.left/0.40.1440.920@0.40.1440.920" timestamp="1618387841560" />
+    <state width="1372" height="256" key="GridCell.Tab.0.right" timestamp="1618387841560">
+      <screen x="0" y="40" width="1440" height="920" />
+    </state>
+    <state width="1372" height="256" key="GridCell.Tab.0.right/0.31.1440.929@0.31.1440.929" timestamp="1618385840542" />
+    <state width="1372" height="256" key="GridCell.Tab.0.right/0.40.1440.920@0.40.1440.920" timestamp="1618387841560" />
+    <state x="223" y="188" key="SettingsEditor" timestamp="1610607516155">
+      <screen x="0" y="31" width="1440" height="929" />
+    </state>
+    <state x="223" y="188" key="SettingsEditor/0.31.1440.929@0.31.1440.929" timestamp="1610607516155" />
+    <state x="413" y="263" width="743" height="534" key="find.popup" timestamp="1616576258724">
+      <screen x="0" y="31" width="1440" height="929" />
+    </state>
+    <state x="413" y="263" width="743" height="534" key="find.popup/0.31.1440.929@0.31.1440.929" timestamp="1616576258724" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Mxonline$YunPian.coverage" NAME="YunPian Coverage Results" MODIFIED="1600160648813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils" />
+    <SUITE FILE_PATH="coverage/Mxonline$random_str.coverage" NAME="random_str Coverage Results" MODIFIED="1610618169480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils" />
+    <SUITE FILE_PATH="coverage/Mxonline$redis_test.coverage" NAME="redis_test Coverage Results" MODIFIED="1600413026434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/Mxonline$views.coverage" NAME="views Coverage Results" MODIFIED="1600417104401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/users" />
+  </component>
+</project>

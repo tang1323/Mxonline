@@ -1,0 +1,114 @@
+
+
+{#因为个人中心有些页面可以共用头部或者尾部，所以可以放在一个文件继承就行了#}
+{#这个共用的我们放在usercenter-base.html#}
+{#所以在这里我们继承#}
+
+{% extends 'usercenter-base.html' %}
+
+{#这个是标题#}
+{% block title %}我的消息- 慕学在线网{% endblock %}
+
+{% load staticfiles %}
+
+{#这是面包屑#}
+{% block custome_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'users:info' %}">个人中心</a>></li>
+                <li>我的消息</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+{#        这是右边的自定义的block#}
+
+{% block right_form %}
+    <div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的消息</h1>
+			</div>
+
+		</div>
+		<div class="personal_des permessage">
+			<div class="head">
+				<ul class="tab_header messagehead">
+					<li class="active"><a href="{% url 'users:messages' %}">个人消息</a> </li>
+				</ul>
+			</div>
+			<div class="messagelist">
+{#                    加入分页逻辑后要加入object_list#}
+                    {% for message in messages.object_list %}
+                    <div class="messages">
+                        <div class="fr">
+                            <div class="top"><span class="fl time">{{ message.add_time }}</span><span class="fr btn foldbtn"></span></div>
+                            <p>
+                                {{ message.message }}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+			</div>
+
+{#            这是分页功能，开始#}
+			<div class="pageturn pagerright">
+                <ul class="pagelist">
+
+{#            这是分页功能，开始#}
+                {% if messages.has_previous %}
+                    <li class="long"><a href="?{{ messages.previous_page_number.querystring }}">上一页</a></li>
+
+                    {#                    这是原本的，不用别人的，上面是自己定义的，但href后面的东西要一致#}
+                    {#                    <a href="?{{ messages.previous_page_number.querystring }}" class="prev">上一页</a>#}
+{#                    如果当前只有一页，就没有显示上一页的标签，所以就不需要有else#}
+{#                {% else %}#}
+{#                    <span class="disabled prev">&lsaquo;&lsaquo; {% trans "previous" %}</span>#}
+                {% endif %}
+                {% for page in messages.pages %}
+                    {% if page %}
+                        {% ifequal page messages.number %}
+{#                            page当前页面是这个，class="active是被选中的状态#}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% else %}
+{#                            如果不是当前页面，那就显示这个#}
+                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="none">...</li>
+                    {% endif %}
+                {% endfor %}
+
+{#            如果还有下一页的话#}
+                {% if messages.has_next %}
+                    <li class="long"><a href="?{{ messages.next_page_number.querystring }}">下一页</a></li>
+                {% endif %}
+{##}
+{#                <li class="active"><a href="?page=1">1</a></li>#}
+{#                <li><a href="?page=2" class="page">2</a></li>#}
+{#                <li><a href="?page=3" class="page">3</a></li#}
+{#                <li class="long"><a href="?page=2">下一页</a></li>#}
+{#             这是分页功能，结束#}
+
+            </ul>
+            </div>
+		</div>
+
+	</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

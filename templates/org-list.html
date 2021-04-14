@@ -1,0 +1,250 @@
+
+{#这里是继承base.html文件的block模块,用extends#}
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{#在这里因为在base.html里己经定义了这个title，这里没有覆盖，可以在这里添加内容就可以#}
+{% block title %}机构列表页 - 慕学在线网{% endblock %}
+
+{#这是头#}
+{% block custom_bread %}
+<section>
+    <div class="wp">
+        <ul  class="crumbs">
+            <li><a href="{% url 'index' %}">首页</a>></li>
+            <li>课程机构</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{#这里是内容#}
+{% block content %}
+<section>
+	<div class="wp butler_list_box list">
+	<div class='left'>
+		<div class="listoptions">
+			<ul>
+				<li>
+					<h2>机构类别</h2>
+					<div class="cont">
+                        <a href="?city={{ city_id }}"><span class="{% ifequal category '' %}active2{% endifequal %}">全部</span></a>
+{#                            做一个判断是否选中状态,, ifequal的pxjg要跟后台数据库和前前端的pxjg要保持一致#}
+{#                            {{ city_id }}是记住选中的状态，不然点击另一个筛选，这个会自动跳转回全部#}
+                            <a href="?ct=pxjg&city={{ city_id }}"><span class="{% ifequal category 'pxjg' %}active2{% endifequal %}">培训机构</span></a>
+
+                            <a href="?ct=gx&city={{ city_id }}"><span class="{% ifequal category 'gx' %}active2{% endifequal %}">高校</span></a>
+
+                            <a href="?ct=gr&city={{ city_id }}"><span class="{% ifequal category 'gr' %}active2{% endifequal %}">个人</span></a>
+
+					</div>
+				</li>
+				<li>
+					<h2>所在地区</h2>
+					<div class="more">更多</div>
+					<div class="cont">
+                        <a href="?ct={{ category }}"><span class="{% ifequal city_id '' %}active2{% endifequal %}">全部</span></a>
+                            {% for city in all_citys %}
+{#                                stringformat是将一个int类型转换成一个字符串， city_id是在view定义的，而city.id是取这个city的id#}
+{#                                {{ category }}是记住选中的状态，不然点击另一个筛选，这个会自动跳转回全部#}
+                                <a href="?city={{ city.id }}&ct={{ category }}"><span class="{% ifequal city_id city.id|stringformat:'i'%}active2{% endifequal %}">{{ city.name }}</span></a>
+                            {% endfor %}
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="all">共<span class="key">{{ org_nums }}</span>家</div>
+		<div class="butler_list company list">
+		<div class="layout">
+			<div class="head">
+				<ul class="tab_header">
+					<li class="{% ifequal sort '' %}active{% endifequal %}"><a href="?ct=&city=">全部</a> </li>
+{#                    {{ category }}{{ city_id }}为什么要加这个呢，因为我们不希望筛选条件给重置了，students和courses后端保持一致 #}
+					<li class="{% ifequal sort 'students' %}active{% endifequal %}"><a href="?sort=students&ct={{ category }}&city={{ city_id }}">学习人数 &#8595;</a></li>
+					<li class="{% ifequal sort 'courses' %}active{% endifequal %}"><a href="?sort=courses&ct={{ category }}&city={{ city_id }}">课程数 &#8595;</a></li>
+				</ul>
+			</div>
+
+{#            在后台已经有声明从数据库里拿到前端了,all_orgs#}
+{#              object_list分页功能的对象属性是object_list，所以要加上#}
+            {% for org in all_orgs.object_list %}
+                <dl class="des difdes">
+                    <dt>
+{#                        org:home中的home是org的子url,所以要加一个:在中间,而且在org下有很多个id,是动态的,所以要把参数加进来#}
+                        <a href="{% url 'org:home' org.id %}">
+                            <img width="200" height="120" class="scrollLoading" src="{{ MEDIA_URL }}{{ org.image }}"/>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="clearfix">
+                             <a href="{% url 'org:home' org.id %}">
+                                 <h1>{{ org.name }}</h1>
+                                 <div class="pic fl">
+{#                                    判断是否金牌或认证，后台己经添加好的，用if判断一下#}
+                                    {% if org.is_auth %}
+                                        <img src="{% static 'images/authentication.png' %}"/>
+                                     {% endif %}
+                                    {% if org.is_gold %}
+                                         <img src="{% static 'images/gold.png' %}"/>
+                                    {% endif %}
+                                 </div>
+                             </a>
+                        </div>
+                        <ul class="cont">
+                            <li class="first"><p class="pic9">课程数：<span>{{ org.course_nums }}</span></p><p class="c7">学习人数：<span>{{ org.students }}</span></p></li>
+                            <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
+                            <li class="pic10" style="padding-left:18px;">经典课程：
+{#                                    这个做一个判断是否有经典课程的名字#}
+                                    {% if org.courses %}
+
+
+{#                                    这个是显示经典课程的名字#}
+                                    {% for course in org.courses %}
+                                        <a href="{% url 'course:detail' course.id %}">{{ course.name }}</a>
+                                    {% endfor %}
+{#                                        如果没有经典课程，那就显示无#}
+                                        {% else %}
+                                        无
+
+                                    {% endif %}
+
+
+                            </li>
+                        </ul>
+                    </dd>
+                    <div class="buy start_groupbuy jsShowPerfect2" data-id="22"><br/>联系<br/>服务</div>
+                </dl>
+            {% endfor %}
+		</div>
+		 <div class="pageturn">
+            <ul class="pagelist">
+
+{#            这是分页功能，开始#}
+                {% if all_orgs.has_previous %}
+                    <li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}">上一页</a></li>
+
+                    {#                    这是原本的，不用别人的，上面是自己定义的，但href后面的东西要一致#}
+                    {#                    <a href="?{{ all_orgs.previous_page_number.querystring }}" class="prev">上一页</a>#}
+{#                    如果当前只有一页，就没有显示上一页的标签，所以就不需要有else#}
+{#                {% else %}#}
+{#                    <span class="disabled prev">&lsaquo;&lsaquo; {% trans "previous" %}</span>#}
+                {% endif %}
+                {% for page in all_orgs.pages %}
+                    {% if page %}
+                        {% ifequal page all_orgs.number %}
+{#                            page当前页面是这个，class="active是被选中的状态#}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% else %}
+{#                            如果不是当前页面，那就显示这个#}
+                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="none">...</li>
+                    {% endif %}
+                {% endfor %}
+
+{#            如果还有下一页的话#}
+                {% if all_orgs.has_next %}
+                    <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}">下一页</a></li>
+                {% endif %}
+{##}
+{#                <li class="active"><a href="?page=1">1</a></li>#}
+{#                <li><a href="?page=2" class="page">2</a></li>#}
+{#                <li><a href="?page=3" class="page">3</a></li#}
+{#                <li class="long"><a href="?page=2">下一页</a></li>#}
+{#             这是分页功能，结束#}
+
+            </ul>
+        </div>
+		</div>
+	</div>
+	<div class="right companyright">
+
+			<div class="head">我要学习</div>
+			<form class="rightform" id="jsStayForm">
+				<div>
+                    <img src="{% static 'images/rightform1.png' %}"/>
+                    <input type="text" name="name" id="companyName" placeholder="名字" maxlength="25" />
+                </div>
+				<div>
+                    <img src="{% static 'images/rightform2.png' %}../"/>
+                    <input type="text" name="mobile" id="companyMobile" placeholder="联系电话"/>
+                </div>
+				<div>
+                    <img src="{% static 'images/rightform3.png' %}../"/>
+                    <input type="text" name="course_name" id="companyAddress" placeholder="课程名" maxlength="50" />
+                </div>
+                <p class="error company-tips" id="jsCompanyTips"></p>
+				<input class="btn" type="submit" id="jsStayBtn" value="立即咨询>" />
+            {% csrf_token %}
+            </form>
+		</div>
+
+		<div class="right companyrank layout">
+			<div class="head">授课机构排名</div>
+            {% for org in hot_orgs %}
+                <dl class="des">
+{#                forloop是知道它的索引是多长, counter是从1开始， counter0是从0开始#}
+                    <dt class="num fl">{{ forloop.counter }}</dt>
+                    <dd>
+{#                        跳转到机构首页页面#}
+                        <a href="{% url 'org:home' org.id %}"><h1>{{ org.name }}</h1></a>
+                        <p>{{ org.address }}</p>
+                    </dd>
+                </dl>
+            {% endfor %}
+		</div>
+        </div>
+</section>
+{% endblock %}
+
+
+{#这是js文件#}
+{% block custom_js %}
+<script>
+    $(function(){
+        $(document).ready(function() {
+            $('#jsStayBtn').on('click', function () {
+                {#ajax虽然我们发送了请求, 这个页面是不会刷新的，哪怕是一个异常的页面，都不会刷新#}
+                {#add_ask在organiztions下的urls中的授课机构子url#}
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'org:add_ask' %}",
+                    data: $('#jsStayForm').serialize(),
+                    async: true,
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            $('#jsStayForm')[0].reset();
+                            $('#jsCompanyTips').html("");
+                            alert("提交成功")
+                        } else if (data.status == 'fail') {
+                            $('#jsCompanyTips').html(data.msg)
+                        }
+                    },
+                });
+            });
+        });
+    })
+
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

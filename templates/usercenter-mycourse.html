@@ -1,0 +1,88 @@
+
+{#因为个人中心有些页面可以共用头部或者尾部，所以可以放在一个文件继承就行了#}
+{#这个共用的我们放在usercenter-base.html#}
+{#所以在这里我们继承#}
+
+{% extends 'usercenter-base.html' %}
+
+{#这个是标题#}
+{% block title %}我的课程- 慕学在线网{% endblock %}
+
+
+{#这是面包屑#}
+{% block custome_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'users:info' %}">个人中心</a>></li>
+                <li>我的课程</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+{#        这是右边的自定义的block#}
+
+{% block right_form %}
+    <div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的课程</h1>
+			</div>
+		</div>
+		<div class="personal_des permessage">
+			<div class="companycenter">
+				<div class="group_list brief">
+{#                原本my_courses也行,下面这样的是外键反向取#}
+                    {% for user_course in user.usercourse_set.all %}
+                    <div class="module1_5 box">
+                            <a href="{% url 'course:detail' user_course.course.id %}">
+{#                                        这里是显示课程的图片, 这时候user_course有个外键是course,然后才image#}
+{#                                                {{ user_course.course.image.url }}这也行#}
+                                <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ user_course.course.image }}"/>
+                            </a>
+                            <div class="des">
+{#                                这里的user_course点击出去就是个外键反向取的，所以这里这样取，不能直接是course.id#}
+                                <a href="{% url 'course:detail' user_course.course.id %}"><h2>{{ user_course.course.name }}</h2></a>
+                                <span class="fl">课时：<i class="key">{{ user_course.course.learn_times }}</i></span>
+                                <span class="fr">学习人数：{{ user_course.course.students }}</span>
+                            </div>
+                            <div class="bottom">
+{#                                course_org是course的外键#}
+                                <span class="fl">{{ user_course.course.course_org.name }}</span>
+                                <span class="star fr  notlogin" data-favid="15">{{ user_course.course.fav_nums }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

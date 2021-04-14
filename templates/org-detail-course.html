@@ -1,0 +1,80 @@
+
+{#先继承org_base页面#}
+{% extends "org_base.html" %}
+
+{#这个也覆盖一下,因为在org_base下block了, 所以要在这里的标题重新覆盖#}
+{% block title %}机构课程{% endblock %}
+
+{#为什么只做这一个div,因为在org_base.html是总的页面,点击机构课程,这个div才会显示,也相当是一个子url#}
+{% block right_form %}
+    <div class="right companycenter layout" >
+		<div class="head">
+			<h1>机构课程</h1>
+		</div>
+		<div class="brief group_list">
+{#        这里因为使用的分页功能, 所以一定要做object_list#}
+{#         object_list分页功能的对象属性是object_list，所以要加上#}
+            {% for course in all_courses.object_list %}
+                <div class="module1_5 box">
+                    <a class="comp-img-box" href="{% url 'course:detail' course.id %}">
+
+                        <img width="214" height="195" src="{{ MEDIA_URL }}{{ course.image }}"/>
+                    </a>
+                    <div class="des">
+                        <a href="{% url 'course:detail' course.id %}"><h2>{{ course.name }}</h2></a>
+                        <span class="fl">课时：<i class="key">{{ course.learn_times }}</i></span>
+                        <span class="fr">学习人数：{{ course.students }}</span>
+                    </div>
+                    <div class="bottom">
+                        <span class="fl">{{ course_org.name }}</span>
+                         <span class="star fr  notlogin
+                            " data-favid="13" data-fav-type="4">
+                            {{ course.fav_nums }}
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+		</div>
+			<div class="pageturn">
+            <ul class="pagelist">
+
+{#            这是分页功能，开始#}
+                {% if all_courses.has_previous %}
+                    <li class="long"><a href="?{{ all_courses.previous_page_number.querystring }}">上一页</a></li>
+
+                    {#                    这是原本的，不用别人的，上面是自己定义的，但href后面的东西要一致#}
+                    {#                    <a href="?{{ all_courses.previous_page_number.querystring }}" class="prev">上一页</a>#}
+{#                    如果当前只有一页，就没有显示上一页的标签，所以就不需要有else#}
+{#                {% else %}#}
+{#                    <span class="disabled prev">&lsaquo;&lsaquo; {% trans "previous" %}</span>#}
+                {% endif %}
+                {% for page in all_courses.pages %}
+                    {% if page %}
+                        {% ifequal page all_courses.number %}
+{#                            page当前页面是这个，class="active是被选中的状态#}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% else %}
+{#                            如果不是当前页面，那就显示这个#}
+                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="none">...</li>
+                    {% endif %}
+                {% endfor %}
+
+{#            如果还有下一页的话#}
+                {% if all_courses.has_next %}
+                    <li class="long"><a href="?{{ all_courses.next_page_number.querystring }}">下一页</a></li>
+                {% endif %}
+{##}
+{#                <li class="active"><a href="?page=1">1</a></li>#}
+{#                <li><a href="?page=2" class="page">2</a></li>#}
+{#                <li><a href="?page=3" class="page">3</a></li#}
+{#                <li class="long"><a href="?page=2">下一页</a></li>#}
+{#             这是分页功能，结束#}
+
+            </ul>
+        </div>
+	</div>
+
+{% endblock %}

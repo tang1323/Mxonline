@@ -1,0 +1,22 @@
+{#先继承org_base页面#}
+{% extends 'org_base.html' %}
+
+{#这里是做一个title的一个替换#}
+{% block title %}机构描述{% endblock %}
+
+
+{#为什么只做这一个div,因为在org_base.html是总的页面,点击机构课程,这个div才会显示,也相当是一个子url#}
+{% block right_form %}
+    <div class="right companycenter layout" >
+        <div class="head">
+            <h1>机构介绍</h1>
+        </div>
+        <div class="des">
+{#            这里是允许有后端副文本的,等到 后面会讲#}
+{#                    因为这里的详情desc我们做了第三方集成副文本，但是全是html和字符串#}
+{#                    所以在这里做一个关掉html的字符，这样就以原样显示了#}
+{#                    用{% autoescape off %}{% endautoescape %}#}
+            {% autoescape off %}{{ course_org.desc }}{% endautoescape %}
+        </div>
+    </div>
+{% endblock %}
